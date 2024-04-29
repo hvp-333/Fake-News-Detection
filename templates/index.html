@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <!-- Alert container -->
+        <div id="alert_container"></div>
+
+        <h1 class="mb-4">Fake News Detection</h1>
+        <form action="/" method="post">
+            <div class="form-group">
+                <textarea class="form-control" id="news_text" name="news_text" placeholder="Enter news text here......&#10;Enter more than 20 words to get accurate result" required>{{ news_text }}</textarea>
+                <div id="word_count" class="text-muted mt-2">Word count: 0</div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="predict_button" onclick="predictBtn()">Predict</button>
+        </form>
+
+        {% if predictions %}
+        <div id="results_section" style="display: block;">
+            <div class="mt-5">
+                <button class="btn btn-sm btn-secondary mb-2 closeResult" onclick="closeResults()" style="float: right; margin-left: -30px;">Close</button>
+                <h2>Results</h2>
+                <table class="table table-bordered table-custom table-hover table-light">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">{{ news_text }}</td>
+                        </tr>
+                        <tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px;">
+                            <th style="width: 370px;">MODEL</th>
+                            <th>PREDICTION</th>
+                        </tr>
+                        <tr>
+                            <td>BERT Model</td>
+                            <td class="{% if predictions.bert_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.bert_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Random Forest Classifier</td>
+                            <td class="{% if predictions.rfc_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.rfc_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Multi Layer Perceptron Classifier</td>
+                            <td class="{% if predictions.mlp_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.mlp_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Logistic Regression</td>
+                            <td class="{% if predictions.lr_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.lr_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Decision Tree</td>
+                            <td class="{% if predictions.dt_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.dt_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Gradient Boosting Classifier</td>
+                            <td class="{% if predictions.gbc_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.gbc_prediction }}</td>
+                        </tr>
+                        <tr>
+                            <td>Multinomial Naive Bayes</td>
+                            <td class="{% if predictions.mnb_prediction == 'REAL' %}text-success{% else %}text-danger{% endif %}" style="font-weight: 700; font-size: 17px;">{{ predictions.mnb_prediction }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Word counter script -->
+    
+    <script>
+        document.getElementById('predict_button').addEventListener('click', function(event) {
+            var text = document.getElementById('news_text').value.trim();
+            var words = text.split(/\s+/);
+            var wordCount = text === '' ? 0 : words.length;
+            
+            if (text === '') {
+                // Prevent form submission
+                event.preventDefault();
+                
+                // Show Bootstrap alert for empty input
+                var alertHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+                alertHtml += 'Please enter some text for prediction.';
+                alertHtml += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                alertHtml += '<span aria-hidden="true">&times;</span></button>';
+                alertHtml += '</div>';
+                document.getElementById('alert_container').innerHTML = alertHtml;
+            } else if (wordCount < 20) {
+                // Prevent form submission
+                event.preventDefault();
+                
+                // Show Bootstrap alert with confirm and close buttons
+                var alertHtml = '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
+                alertHtml += 'Please enter at least 20 words for accurate prediction.';
+                alertHtml += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                alertHtml += '<span aria-hidden="true">&times;</span></button>';
+                alertHtml += '<br><button type="button" id="alertBtn" class="btn btn-success mr-2" onclick="confirmAction()">No Thanks, Continue</button>';
+                alertHtml += '<button type="button" id="alertBtn" class="btn btn-danger" onclick="closeAlert()">Close</button>';
+                alertHtml += '</div>';
+                document.getElementById('alert_container').innerHTML = alertHtml;
+            }
+        });
+    
+        document.getElementById('news_text').addEventListener('input', function() {
+            var text = this.value;
+            var words = text.trim().split(/\s+/);
+            var wordCount = text.trim() === '' ? 0 : words.length;
+            document.getElementById('word_count').innerText = 'Word count: ' + wordCount;
+        });
+
+        // Function to handle confirm action
+        function confirmAction() {
+            // Add your code to handle confirm action here
+            // Example: You can submit the form to perform prediction
+            document.querySelector('form').submit();
+        }
+
+        // Function to close the alert
+        function closeAlert() {
+            document.getElementById('alert_container').innerHTML = '';
+        }
+
+        // Function to close the results section
+        function closeResults() {
+            document.getElementById('results_section').style.display = 'none';
+        }
+    </script>
+    
+    
+</body>
+</html>
