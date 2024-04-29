@@ -7,15 +7,28 @@ The proliferation of fake news on social media and online platforms has become a
 
 ## **Features**
 
-**_Data Collection_** : The project includes a comprehensive dataset of real and fake news articles collected from various sources.
+- **_Data Collection_** : The project includes a comprehensive dataset of real and fake news articles collected from various sources.
 
-**_Data Preprocessing_** : The dataset undergoes preprocessing steps such as text cleaning, tokenization, and feature extraction.
+- **_Data Preprocessing_** : The dataset undergoes preprocessing steps such as text cleaning, tokenization, and feature extraction.
 
-**_Model Training_** : Multiple machine learning models are trained on the preprocessed data, including traditional algorithms like Logistic Regression, Naive Bayes, and ensemble methods like Random Forest, and many more.
+- **_Model Training_** : Multiple machine learning models are trained on the preprocessed data, including traditional algorithms like Logistic Regression, Naive Bayes, and ensemble methods like Random Forest, and many more.
 
-**_Evaluation_** : The trained models are evaluated using various performance metrics, such as accuracy, precision, recall, and F1-score, to assess their effectiveness in detecting fake news articles.
+- **_Evaluation_** : The trained models are evaluated using various performance metrics, such as accuracy, precision, recall, and F1-score, to assess their effectiveness in detecting fake news articles.
 
-**_Deployment_** : The best-performing models can be deployed as a web application or API for real-time fake news detection.
+- **_Deployment_** : The best-performing models can be deployed as a web application or API for real-time fake news detection.
+
+## **Dependencies**
+
+Numpy  
+Pandas  
+Scikit-learn  
+NLTK  
+Gensim  
+Tensorflow  
+Keras   
+Matplotlib  
+Seaborn  
+Wordcloud 
 
 ## **Getting Started**
 
