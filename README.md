@@ -38,10 +38,10 @@ This project is licensed under the MIT License.
 
 ## **Acknowledgments**
 
-https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets
+[Fake News Detection Dataset](https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets)
 
-https://www.kaggle.com/datasets/sonalgarg174/ifnd-dataset
+[Fake News Dataset](https://www.kaggle.com/datasets/sonalgarg174/ifnd-dataset)
 
-https://www.kaggle.com/code/imbikramsaha/99-accuracy-on-fake-news-dataset/input
+[IFND Dataset](https://www.kaggle.com/code/imbikramsaha/99-accuracy-on-fake-news-dataset/input)
 
 Feel free to modify and customize this README content according to your project's specific details, such as the dataset sources, libraries used, and any additional information you'd like to include.
