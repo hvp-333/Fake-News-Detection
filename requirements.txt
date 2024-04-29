@@ -1,0 +1,10 @@
+numpy==1.19.5
+pandas==1.1.5
+scikit-learn==0.24.1
+nltk==3.6.2
+gensim==4.0.1
+tensorflow==2.5.0
+keras==2.5.0
+matplotlib==3.3.4
+seaborn==0.11.1
+wordcloud==1.8.1
