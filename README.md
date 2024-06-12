@@ -11,7 +11,7 @@ The proliferation of fake news on social media and online platforms has become a
 
 - **_Data Preprocessing_** : The dataset undergoes preprocessing steps such as text cleaning, tokenization, and feature extraction.
 
-- **_Model Training_** : Multiple machine learning models are trained on the preprocessed data, including traditional algorithms like Logistic Regression, Naive Bayes, and ensemble methods like Random Forest, and many more.
+- **_Model Training_** : Multiple machine learning models are trained on the preprocessed data, including traditional algorithms like Logistic Regression, Naive Bayes, and ensemble methods like Random Forest, Gradient Boosting Classifier and many more.
 
 - **_Evaluation_** : The trained models are evaluated using various performance metrics, such as accuracy, precision, recall, and F1-score, to assess their effectiveness in detecting fake news articles.
 
