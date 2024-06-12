@@ -15,7 +15,7 @@ The proliferation of fake news on social media and online platforms has become a
 
 - **_Evaluation_** : The trained models are evaluated using various performance metrics, such as accuracy, precision, recall, and F1-score, to assess their effectiveness in detecting fake news articles.
 
-- **_Deployment_** : The best-performing models can be deployed as a web application or API for real-time fake news detection.
+- **_Deployment_** : The best-performing models can be deployed as a web application or API for fake news detection.
 
 ## **Dependencies**
 
